@@ -1,0 +1,24 @@
+import cuentas.*
+
+test "Cuenta combinada" {
+	cuentaCombinada.cuentaPrimaria(cuentaCorriente)
+	cuentaCombinada.cuentaSecundaria(cuentaConGastos)
+	cuentaCombinada.cuentaPrimaria().saldo(30000)
+	cuentaCombinada.cuentaSecundaria().saldo(2000000)
+	
+	assert.equals(2030000, cuentaCombinada.saldo())
+	
+	cuentaCombinada.depositar(10000)
+	
+	assert.equals(40000, cuentaCorriente.saldo())
+	
+	cuentaCombinada.extraer(5000)
+	
+	assert.equals(35000, cuentaCorriente.saldo())
+	
+	cuentaCombinada.extraer(100000)
+	
+	assert.equals(35000, cuentaCorriente.saldo())
+	assert.equals(2000000-100000*1.02, cuentaConGastos.saldo())
+
+}
